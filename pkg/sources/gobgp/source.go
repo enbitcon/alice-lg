@@ -178,6 +178,10 @@ func (gobgp *GoBGP) Neighbors(
 
 		neigh := api.Neighbor{}
 
+		if _resp.Peer.Conf.NeighborAddress == nil {
+			return nil, fmt.Errorf("neighbor address is nil %v", _resp)
+		}
+
 		neigh.Address = _resp.Peer.State.NeighborAddress
 		neigh.ASN = int(_resp.Peer.State.PeerAs)
 		switch _resp.Peer.State.SessionState {
